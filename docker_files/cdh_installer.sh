@@ -41,6 +41,6 @@ sudo -u hdfs hadoop fs -chown hadoop /user/hadoop
 
 #CDH5-Installation-Guide Install HBase
 echo "Install Cloudera Components"
-DEBIAN_FRONTEND=noninteractive apt-get -y install hbase hue
+DEBIAN_FRONTEND=noninteractive apt-get -y install hive hbase pig hue oozie oozie-client
 
 

@@ -14,6 +14,7 @@ RUN \
 # private and public mapping
 EXPOSE 8020:8020
 EXPOSE 8888:8888
+EXPOSE 11000:11000
 
 # private only
 #EXPOSE 80

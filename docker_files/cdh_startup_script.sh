@@ -6,7 +6,7 @@ echo "Start Yarn"
 service hadoop-yarn-resourcemanager start
 service hadoop-yarn-nodemanager start
 service hadoop-mapreduce-historyserver start
-
+service oozie start
 
 echo "Start Components"
 service hue start
