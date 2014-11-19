@@ -15,6 +15,7 @@ RUN \
 EXPOSE 8020:8020
 EXPOSE 8888:8888
 EXPOSE 11000:11000
+EXPOSE 11443:11443
 
 # private only
 #EXPOSE 80
@@ -22,4 +23,4 @@ EXPOSE 11000:11000
 # Define default command.
 #CMD ["/usr/bin/cdh_startup_script.sh && bash"]
 #CMD ["bash /usr/bin/cdh_startup_script.sh && bash"]
-CMD ["bash"]
+CMD ["cdh_startup_script.sh"]

@@ -10,3 +10,6 @@ service oozie start
 
 echo "Start Components"
 service hue start
+
+echo "Start Terminal"
+bash
