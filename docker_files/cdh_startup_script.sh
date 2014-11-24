@@ -13,9 +13,9 @@ service hue start
 
 nohup hiveserver2 &
 
-echo "Start Terminal"
-
 bash -c 'for x in `cd /etc/init.d ; ls impala-*` ; do sudo service $x start ; done'
+service hbase-master start
+service hbase-thrift start
 
-
+echo "Start Terminal"
 bash
