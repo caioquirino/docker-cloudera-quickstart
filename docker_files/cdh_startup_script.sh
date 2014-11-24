@@ -11,5 +11,11 @@ service oozie start
 echo "Start Components"
 service hue start
 
+nohup hiveserver2 &
+
 echo "Start Terminal"
+
+bash -c 'for x in `cd /etc/init.d ; ls impala-*` ; do sudo service $x start ; done'
+
+
 bash

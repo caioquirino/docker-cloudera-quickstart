@@ -8,7 +8,7 @@ echo 'deb-src http://archive.cloudera.com/cdh5/ubuntu/trusty/amd64/cdh trusty-cd
 
 DEBIAN_FRONTEND=noninteractive apt-get update
 
-DEBIAN_FRONTEND=noninteractive apt-get -y install hadoop-conf-pseudo
+DEBIAN_FRONTEND=noninteractive apt-get -y install hadoop-conf-pseudo impala impala-server impala-state-store impala-catalog impala-shell
 
 #CDH5-Installation-Guide Step 1 - Format the NameNode
 echo "Step 1 - Format the NameNode"
@@ -36,11 +36,21 @@ service hadoop-mapreduce-historyserver start
 echo "Step 6 - Create User Directories"
 sudo -u hdfs hadoop fs -mkdir /user/hadoop
 sudo -u hdfs hadoop fs -chown hadoop /user/hadoop
-
+hadoop fs -mkdir       /tmp
+hadoop fs -mkdir       /user/hive/warehouse
+hadoop fs -chmod g+w   /tmp
+hadoop fs -chmod g+w   /user/hive/warehouse
 
 
 #CDH5-Installation-Guide Install HBase
 echo "Install Cloudera Components"
 DEBIAN_FRONTEND=noninteractive apt-get -y install hive hbase pig hue oozie oozie-client
+
+#Initiate Oozie Database
+oozie-setup db create -run
+
+
+#Create HUE Secret Key
+sed -i 's/secret_key=/secret_key=_S@s+D=h;B,s$C%k#H!dMjPmEsSaJR/g' /etc/hue/conf.empty/hue.ini
 
 
