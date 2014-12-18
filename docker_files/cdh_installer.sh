@@ -52,6 +52,6 @@ oozie-setup db create -run
 
 
 #Create HUE Secret Key
-sed -i 's/secret_key=/secret_key=_S@s+D=h;B,s$C%k#H!dMjPmEsSaJR/g' /etc/hue/conf.empty/hue.ini
+sed -i 's/secret_key=/secret_key=_S@s+D=h;B,s$C%k#H!dMjPmEsSaJR/g' /etc/hue/conf/hue.ini
 
 
