@@ -25,3 +25,33 @@ https://github.com/caioquirino/docker-cloudera-quickstart
 
 
 Please report any issue or feedback if possible.
+
+
+
+
+Checklist of components:
+
+
+Apache Hadoop (Common, HDFS, MapReduce, YARN)
+
+Apache HBase
+
+Apache ZooKeeper
+
+Apache Oozie
+
+Apache Hive
+
+Hue (Apache licensed)
+
+Apache Flume
+
+Cloudera Impala (Apache licensed)
+
+Apache Sentry
+
+Apache Sqoop
+
+Cloudera Search (Apache licensed)
+
+Apache Spark
