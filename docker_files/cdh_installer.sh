@@ -45,7 +45,7 @@ sudo -u hdfs hadoop fs -chown hbase /hbase
 
 #CDH5-Installation-Guide Install HBase
 echo "Install Cloudera Components"
-DEBIAN_FRONTEND=noninteractive apt-get -y install hive hbase hbase-thrift hbase-master pig hue oozie oozie-client
+DEBIAN_FRONTEND=noninteractive apt-get -y install hive hbase hbase-thrift hbase-master pig hue oozie oozie-client spark-core spark-master spark-worker spark-history-server spark-python
 
 #Initiate Oozie Database
 oozie-setup db create -run
