@@ -5,6 +5,8 @@ MAINTAINER Caio Quirino <caioquirino@caioquirino.com.br>
 
 ADD docker_files/cdh_installer.sh /tmp/cdh_installer.sh
 ADD docker_files/cdh_startup_script.sh /usr/bin/cdh_startup_script.sh
+ADD docker_files/cloudera.pref /etc/apt/preferences.d/cloudera.pref
+
 
 RUN \
     chmod +x /tmp/cdh_installer.sh && \
