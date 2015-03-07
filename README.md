@@ -9,7 +9,11 @@ Cloudera Hadoop 5 (CDH5)
 Now you can run the Cloudera Quick Start image without all the overhead of a Virtual Machine. Just use docker-cloudera-quickstart Image.
 
 
-Based on Ubuntu 14.04 (Trusty LTS) Works with Cloudera CDH 5+ (Tested with 5.2)
+Based on Ubuntu 14.04 (Trusty LTS) 
+
+Works with Cloudera CDH 5
+
+*UPDATED FOR LATEST VERSION - CDH5.3.2
 
 
 *Under development. 
@@ -28,7 +32,6 @@ To use the up and running instance:
 docker ps
 docker exec -i -t CONTAINER_ID bash
 ```
-
 
 #Links
 
