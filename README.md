@@ -12,25 +12,32 @@ Now you can run the Cloudera Quick Start image without all the overhead of a Vir
 Based on Ubuntu 14.04 (Trusty LTS) Works with Cloudera CDH 5+ (Tested with 5.2)
 
 
-Under development. 
-
-Pull the image on Docker Hub: 
-
-https://registry.hub.docker.com/u/caioquirino/docker-cloudera-quickstart/
+*Under development. 
 
 
-Github page:
+#Instructions
 
-https://github.com/caioquirino/docker-cloudera-quickstart
+##Install
+To install the docker-cloudera-quickstart from docker-hub, simply use the following command:
+```
+docker run -i caioquirino/docker-cloudera-quickstart
+```
+##Use
+To use the up and running instance:
+```
+docker ps
+docker exec -i -t CONTAINER_ID bash
+```
 
 
-Please report any issue or feedback if possible.
+#Links
+
+Pull the image on Docker Hub: https://registry.hub.docker.com/u/caioquirino/docker-cloudera-quickstart/
+
+Github page: https://github.com/caioquirino/docker-cloudera-quickstart
 
 
-
-
-Checklist of components:
-
+# Checklist of components:
 
 Apache Hadoop (Common, HDFS, MapReduce, YARN)
 
@@ -55,3 +62,6 @@ Apache Sqoop
 Cloudera Search (Apache licensed)
 
 Apache Spark
+
+
+#Please report any issue or feedback if possible.
