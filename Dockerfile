@@ -9,6 +9,8 @@ ADD docker_files/cloudera.pref /etc/apt/preferences.d/cloudera.pref
 
 ENV TERM xterm
 
+ENV TERM xterm
+
 RUN \
     chmod +x /tmp/cdh_installer.sh && \
     chmod +x /usr/bin/cdh_startup_script.sh && \
@@ -20,6 +22,8 @@ EXPOSE 8888:8888
 EXPOSE 11000:11000
 EXPOSE 11443:11443
 EXPOSE 9090:9090
+EXPOSE 8088:8088
+EXPOSE 19888:19888
 
 # private only
 #EXPOSE 80
