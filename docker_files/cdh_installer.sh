@@ -47,6 +47,10 @@ sudo -u hdfs hadoop fs -chown hbase /hbase
 echo "Install Cloudera Components"
 DEBIAN_FRONTEND=noninteractive apt-get -y install hive hbase hbase-thrift hbase-master pig hue oozie oozie-client spark-core spark-master spark-worker spark-history-server spark-python
 
+#Configure Oozie
+update-alternatives --set oozie-tomcat-conf /etc/oozie/tomcat-conf.http
+sudo -u hdfs hadoop fs -chown oozie:oozie /user/oozie
+sudo oozie-setup sharelib create -fs hdfs://localhost -locallib /usr/lib/oozie/oozie-sharelib-yarn.tar.gz
 #Initiate Oozie Database
 oozie-setup db create -run
 

@@ -6,7 +6,14 @@ echo "Start Yarn"
 service hadoop-yarn-resourcemanager start
 service hadoop-yarn-nodemanager start
 service hadoop-mapreduce-historyserver start
+
+echo "Start Oozie"
+export OOZIE_URL=http://localhost:11000/oozie
 service oozie start
+
+echo "Start Spark"
+service spark-master start
+service spark-worker start
 
 echo "Start Components"
 service hue start
