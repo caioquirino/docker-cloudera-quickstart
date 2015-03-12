@@ -5,6 +5,7 @@ bash -c 'for x in `cd /etc/init.d ; ls hadoop-hdfs-*` ; do sudo service $x start
 echo "Start Yarn"
 service hadoop-yarn-resourcemanager start
 service hadoop-yarn-nodemanager start
+chmod -R 777 /var/log/hadoop-mapreduce
 service hadoop-mapreduce-historyserver start
 
 echo "Start Oozie"
