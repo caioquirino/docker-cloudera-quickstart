@@ -19,6 +19,8 @@ service spark-worker start
 echo "Start Components"
 service hue start
 
+service solr-server start
+
 nohup hiveserver2 &
 
 bash -c 'for x in `cd /etc/init.d ; ls impala-*` ; do sudo service $x start ; done'
