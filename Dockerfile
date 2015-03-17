@@ -6,7 +6,6 @@ MAINTAINER Caio Quirino <caioquirino@caioquirino.com.br>
 ADD docker_files/cdh_installer.sh /tmp/cdh_installer.sh
 ADD docker_files/cdh_startup_script.sh /usr/bin/cdh_startup_script.sh
 ADD docker_files/cloudera.pref /etc/apt/preferences.d/cloudera.pref
-ADD docker_files/solr /etc/default/solr
 
 
 ENV TERM xterm
@@ -17,6 +16,9 @@ RUN \
     chmod +x /tmp/cdh_installer.sh && \
     chmod +x /usr/bin/cdh_startup_script.sh && \
     bash /tmp/cdh_installer.sh
+
+#The solr config file needs to be added after installation or it fails.
+ADD docker_files/solr /etc/default/solr
 
 # private and public mapping
 EXPOSE 8020:8020
