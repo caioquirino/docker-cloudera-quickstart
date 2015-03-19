@@ -24,10 +24,18 @@ Works with Cloudera CDH 5
 ##Install
 To install the docker-cloudera-quickstart from docker-hub, simply use the following command:
 ```
-docker run -i caioquirino/docker-cloudera-quickstart
+docker pull caioquirino/docker-cloudera-quickstart
 ```
 ##Use
-To use the up and running instance:
+To start an instance in BACKGROUND (as daemon):
+```
+docker run -i -t -d bash
+```
+To start an instance in FOREGROUND:
+```
+docker run -i -t bash
+```
+To open more terminal instances for the running instance:
 ```
 docker ps
 docker exec -i -t CONTAINER_ID bash
@@ -35,9 +43,9 @@ docker exec -i -t CONTAINER_ID bash
 
 #Links
 
-Pull the image on Docker Hub: https://registry.hub.docker.com/u/caioquirino/docker-cloudera-quickstart/
+[Pull the image on Docker Hub](https://registry.hub.docker.com/u/caioquirino/docker-cloudera-quickstart/)
 
-Github page: https://github.com/caioquirino/docker-cloudera-quickstart
+[Github page](https://github.com/caioquirino/docker-cloudera-quickstart)
 
 
 # Checklist of components:
