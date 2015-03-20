@@ -29,11 +29,11 @@ docker pull caioquirino/docker-cloudera-quickstart
 ##Use
 To start an instance in BACKGROUND (as daemon):
 ```
-docker run -i -t -d bash
+docker run -i -t -d caioquirino/docker-cloudera-quickstart
 ```
 To start an instance in FOREGROUND:
 ```
-docker run -i -t bash
+docker run -i -t caioquirino/docker-cloudera-quickstart
 ```
 To open more terminal instances for the running instance:
 ```
