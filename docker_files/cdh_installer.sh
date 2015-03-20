@@ -34,14 +34,14 @@ service hadoop-mapreduce-historyserver start
 
 #CDH5-Installation-Guide Step 6 - Create User Directories
 echo "Step 6 - Create User Directories"
-sudo -u hdfs hadoop fs -mkdir /user/hadoop
-sudo -u hdfs hadoop fs -chown hadoop /user/hadoop
+sudo -u hdfs hdfs dfs -mkdir /user/hadoop
+sudo -u hdfs hdfs dfs -chown hadoop /user/hadoop
 hadoop fs -mkdir       /tmp
-hadoop fs -mkdir       /user/hive/warehouse
+sudo -u hive hdfs dfs -mkdir       /user/hive/warehouse
 hadoop fs -chmod g+w   /tmp
-hadoop fs -chmod g+w   /user/hive/warehouse
-sudo -u hdfs hadoop fs -mkdir /hbase
-sudo -u hdfs hadoop fs -chown hbase /hbase
+sudo -u hive hdfs dfs -chmod g+w   /user/hive/warehouse
+sudo -u hdfs hdfs dfs -mkdir /hbase
+sudo -u hdfs hdfs dfs -chown hbase /hbase
 
 #CDH5-Installation-Guide Install HBase
 echo "Install Cloudera Components"
