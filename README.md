@@ -30,7 +30,7 @@ docker run -i caioquirino/docker-cloudera-quickstart
 To use the up and running instance:
 ```
 docker ps
-docker exec -i -t CONTAINER_ID bash
+docker exec -i -t CONTAINER_ID bash -l
 ```
 
 #Links
