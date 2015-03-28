@@ -38,7 +38,7 @@ docker run -i -t caioquirino/docker-cloudera-quickstart
 To open more terminal instances for the running instance:
 ```
 docker ps
-docker exec -i -t CONTAINER_ID bash
+docker exec -i -t CONTAINER_ID bash -l
 ```
 
 #Links
