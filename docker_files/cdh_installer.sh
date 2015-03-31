@@ -63,6 +63,8 @@ sed -i 's/secret_key=/secret_key=_S@s+D=h;B,s$C%k#H!dMjPmEsSaJR/g' /etc/hue/conf
 DEBIAN_FRONTEND=noninteractive apt-get -y install solr-server hue-search
 sudo -u hdfs hadoop fs -mkdir /solr
 sudo -u hdfs hadoop fs -chown solr /solr
+mv /etc/default/solr.docker /etc/default/solr
+service hbase-master start
 solrctl init
 
 
