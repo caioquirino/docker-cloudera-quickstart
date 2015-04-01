@@ -2,9 +2,9 @@
 DEBIAN_FRONTEND=noninteractive apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get install -y -q openjdk-7-jre-headless wget dialog curl sudo lsof vim axel telnet
 
-curl -s http://archive.cloudera.com/cdh5/ubuntu/trusty/amd64/cdh/archive.key | apt-key add -
-echo 'deb [arch=amd64] http://archive.cloudera.com/cdh5/ubuntu/trusty/amd64/cdh trusty-cdh5 contrib' > /etc/apt/sources.list.d/cloudera.list
-echo 'deb-src http://archive.cloudera.com/cdh5/ubuntu/trusty/amd64/cdh trusty-cdh5 contrib' >> /etc/apt/sources.list.d/cloudera.list
+if [ -f install_cloudera_repositories.sh ]; then
+    ./install_cloudera_repositories.sh
+fi
 
 DEBIAN_FRONTEND=noninteractive apt-get update
 
