@@ -2,8 +2,8 @@
 DEBIAN_FRONTEND=noninteractive apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get install -y -q openjdk-7-jre-headless wget dialog curl sudo lsof vim axel telnet
 
-if [ -f install_cloudera_repositories.sh ]; then
-    ./install_cloudera_repositories.sh
+if [ -f /tmp/install_cloudera_repositories.sh ]; then
+    . /tmp/install_cloudera_repositories.sh
 fi
 
 DEBIAN_FRONTEND=noninteractive apt-get update
