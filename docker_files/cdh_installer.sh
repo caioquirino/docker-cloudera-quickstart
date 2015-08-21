@@ -1,6 +1,16 @@
 #!/bin/bash
-DEBIAN_FRONTEND=noninteractive apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get install -y -q openjdk-7-jre-headless wget dialog curl sudo lsof vim axel telnet
+export DEBIAN_FRONTEND=noninteractive 
+
+RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+
+apt-get update
+apt-get install -y --no-install-recommends software-properties-common
+add-apt-repository ppa:webupd8team/java
+apt-get update
+apt-get install -y --no-install-recommends oracle-java7-installer=7u80+7u60arm-0~webupd8~0 oracle-java7-set-default
+
+apt-get install -y -q wget dialog curl sudo lsof vim axel telnet
 
 if [ -f /tmp/install_cloudera_repositories.sh ]; then
     . /tmp/install_cloudera_repositories.sh
