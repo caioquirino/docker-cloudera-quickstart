@@ -61,7 +61,7 @@ apt-get -y install hive hbase hbase-thrift hbase-master pig hue oozie oozie-clie
 #Configure Oozie
 update-alternatives --set oozie-tomcat-conf /etc/oozie/tomcat-conf.http
 sudo -u hdfs hadoop fs -chown oozie:oozie /user/oozie
-sudo oozie-setup sharelib create -fs hdfs://localhost -locallib /usr/lib/oozie/oozie-sharelib-yarn.tar.gz
+sudo oozie-setup sharelib create -fs hdfs://localhost -locallib /usr/lib/oozie/oozie-sharelib-yarn
 #Initiate Oozie Database
 oozie-setup db create -run
 
