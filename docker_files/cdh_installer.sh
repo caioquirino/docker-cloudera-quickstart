@@ -1,14 +1,14 @@
 #!/bin/bash
 export DEBIAN_FRONTEND=noninteractive 
 
-RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
-RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
 
 apt-get update
 apt-get install -y --no-install-recommends software-properties-common
 add-apt-repository ppa:webupd8team/java
 apt-get update
-apt-get install -y --no-install-recommends oracle-java7-installer=7u80+7u60arm-0~webupd8~0 oracle-java7-set-default
+apt-get install -y --no-install-recommends oracle-java7-installer oracle-java7-set-default
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
 
 apt-get install -y -q wget dialog curl sudo lsof vim axel telnet
@@ -17,9 +17,9 @@ if [ -f /tmp/install_cloudera_repositories.sh ]; then
     . /tmp/install_cloudera_repositories.sh
 fi
 
-DEBIAN_FRONTEND=noninteractive apt-get update
+apt-get update
 
-DEBIAN_FRONTEND=noninteractive apt-get -y install hadoop-conf-pseudo impala impala-server impala-state-store impala-catalog impala-shell
+apt-get -y install hadoop-conf-pseudo impala impala-server impala-state-store impala-catalog impala-shell
 
 #CDH5-Installation-Guide Step 1 - Format the NameNode
 echo "Step 1 - Format the NameNode"
@@ -56,7 +56,7 @@ sudo -u hdfs hdfs dfs -chown hbase /hbase
 
 #CDH5-Installation-Guide Install HBase
 echo "Install Cloudera Components"
-DEBIAN_FRONTEND=noninteractive apt-get -y install hive hbase hbase-thrift hbase-master pig hue oozie oozie-client spark-core spark-master spark-worker spark-history-server spark-python
+apt-get -y install hive hbase hbase-thrift hbase-master pig hue oozie oozie-client spark-core spark-master spark-worker spark-history-server spark-python
 
 #Configure Oozie
 update-alternatives --set oozie-tomcat-conf /etc/oozie/tomcat-conf.http
@@ -71,7 +71,7 @@ sed -i 's/secret_key=/secret_key=_S@s+D=h;B,s$C%k#H!dMjPmEsSaJR/g' /etc/hue/conf
 
 
 
-DEBIAN_FRONTEND=noninteractive apt-get -y install solr-server hue-search
+apt-get -y install solr-server hue-search
 sudo -u hdfs hadoop fs -mkdir /solr
 sudo -u hdfs hadoop fs -chown solr /solr
 mv /etc/default/solr.docker /etc/default/solr
