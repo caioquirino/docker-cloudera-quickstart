@@ -9,6 +9,7 @@ apt-get install -y --no-install-recommends software-properties-common
 add-apt-repository ppa:webupd8team/java
 apt-get update
 apt-get install -y --no-install-recommends oracle-java7-installer=7u80+7u60arm-0~webupd8~0 oracle-java7-set-default
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle
 
 apt-get install -y -q wget dialog curl sudo lsof vim axel telnet
 

@@ -1,4 +1,7 @@
 #!/bin/bash
+
+export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+
 echo "Start HDFS"
 bash -c 'for x in `cd /etc/init.d ; ls hadoop-hdfs-*` ; do sudo service $x start ; done'
 
