@@ -2,9 +2,6 @@
 
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
 
-echo "Start Zookeeper"
-service zookeeper-server start
-
 echo "Start HDFS"
 bash -c 'for x in `cd /etc/init.d ; ls hadoop-hdfs-*` ; do sudo service $x start ; done'
 
@@ -30,8 +27,8 @@ service solr-server start
 nohup hiveserver2 &
 
 bash -c 'for x in `cd /etc/init.d ; ls impala-*` ; do sudo service $x start ; done'
-service hbase-master start
-service hbase-thrift start
+service hbase-master restart
+service hbase-thrift restart
 
 KAFKA_HOME=/home/kafka
 sudo -u kafka nohup ${KAFKA_HOME}/kafka/bin/kafka-server-start.sh ${KAFKA_HOME}/kafka/config/server.properties > ${KAFKA_HOME}/kafka/kafka.log 2>&1 &
