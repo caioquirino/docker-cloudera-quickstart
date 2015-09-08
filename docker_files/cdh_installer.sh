@@ -99,24 +99,33 @@ apt-get -y install hadoop-kms hadoop-kms-server hive hbase hbase-thrift hbase-ma
 #Use standalone Zookeeper
 echo "export HBASE_MANAGES_ZK=true" >> /etc/hbase/conf.dist/hbase-env.sh
 
-#For now, use embedded Zookeeper, but on different port.
-#Tried to use shared zookeeper, but ran into issues.  See below for how to do that.
-#http://serverfault.com/questions/599661/could-not-start-zk-at-requested-port-of-2181-while-export-hbase-manages-zk-fals
 echo '<?xml version="1.0"?>' > /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '<configuration>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+
+# For now, use standalone mode with embedded Zookeeper, but on different port.
+# Tried to use shared zookeeper, but ran into issues.  See below for how to do that.
+# http://serverfault.com/questions/599661/could-not-start-zk-at-requested-port-of-2181-while-export-hbase-manages-zk-fals
 echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <name>hbase.cluster.distributed</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <value>false</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '    </property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+
+# Use a different port than 2181 to avoid interfering with the usual Zookeeper
 echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <name>hbase.zookeeper.property.clientPort</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <value>2182</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '    </property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+
+# This is actually the default for maxClientCnxns, but a nice reminder
 echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <name>hbase.zookeeper.property.maxClientCnxns</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <value>300</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '    </property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+
+# When running pseudo-distributed, I would see timeouts on zookeeper sessions, so
+# I bumped up the timeout. This is probably unnecessary in standalon mode,
+# but I'm leaving it just because it worked.
 echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <name>hbase.zookeeper.session.timeout</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <value>1800000</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
