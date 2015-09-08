@@ -28,13 +28,16 @@ if [ -f /tmp/install_cloudera_repositories.sh ]; then
     . /tmp/install_cloudera_repositories.sh || die
 fi
 
-# apt-get -y install zookeeper-server
-
-# echo "Start Zookeeper"
-# service zookeeper-server init || die "Unable to init zookeeper-server"
-# service zookeeper-server start || die "Unable to start zookeeper-server"
-
 apt-get update || die
+
+echo "Install Zookeeper"
+apt-get -y install zookeeper-server || die "Unable to install zookeeper-server"
+
+echo "Start Zookeeper"
+service zookeeper-server init || die "Unable to init zookeeper-server"
+service zookeeper-server start || die "Unable to start zookeeper-server"
+service zookeeper-server stop || die "Unable to stop zookeeper-server"
+
 apt-get -y install hadoop-conf-pseudo impala impala-server impala-state-store impala-catalog impala-shell || die
 
 #CDH5-Installation-Guide Step 1 - Format the NameNode
@@ -87,7 +90,26 @@ sudo -u hdfs hdfs dfs -chown hdh /HDH || die "Unable to change owner of HDFS dir
 
 #CDH5-Installation-Guide Install HBase
 echo "Install Cloudera Components"
-apt-get -y install hadoop-kms hadoop-kms-server hive hbase hbase-thrift hbase-master pig hue oozie oozie-client spark-core spark-master spark-worker spark-history-server spark-python || die
+#apt-get -y install hadoop-kms hadoop-kms-server hive hbase hbase-thrift hbase-master pig hue oozie oozie-client spark-core spark-master spark-worker spark-history-server spark-python || die
+apt-get -y install hadoop-kms hadoop-kms-server hive hbase hbase-thrift hbase-master hbase-regionserver pig hue oozie oozie-client || die
+
+#Use standalone Zookeeper
+echo "export HBASE_MANAGES_ZK=false" >> /etc/hbase/conf.dist/hbase-env.sh
+
+#Need to set to pseudo-distributed mode to not use embedded Zookeeper
+#http://serverfault.com/questions/599661/could-not-start-zk-at-requested-port-of-2181-while-export-hbase-manages-zk-fals
+echo '<?xml version="1.0"?>' > /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '<configuration>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <name>hbase.cluster.distributed</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <value>true</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '    </property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <name>hbase.coprocessor.abortonerror</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <value>false</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '    </property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '</configuration>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 
 #Configure Oozie
 update-alternatives --set oozie-tomcat-conf /etc/oozie/tomcat-conf.http || die
@@ -100,12 +122,12 @@ oozie-setup db create -run || die
 #Create HUE Secret Key
 sed -i 's/secret_key=/secret_key=_S@s+D=h;B,s$C%k#H!dMjPmEsSaJR/g' /etc/hue/conf/hue.ini || die
 
-apt-get -y install solr-server hue-search || die
-sudo -u hdfs hadoop fs -mkdir -p /solr || die
-sudo -u hdfs hadoop fs -chown solr /solr || die
-mv /etc/default/solr.docker /etc/default/solr || die
+apt-get -y install solr-server hue-search
+sudo -u hdfs hadoop fs -mkdir -p /solr
+sudo -u hdfs hadoop fs -chown solr /solr
+mv /etc/default/solr.docker /etc/default/solr
 service hbase-master start || die
-solrctl init || die
+solrctl init
 
 # Install Kafka per https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04
 echo "Install Kafka"

@@ -9,6 +9,7 @@ docker build --rm -t cdh .
 #sudo docker build --no-cache=true --rm -t cdh .
 # Use dockerhost as the hostname
 docker run --name cdh -i -t -h dockerhost \
+	--expose=1024-65535 \
 	-p 2181:2181 \
 	-p 8020:8020 \
 	-p 8888:8888 \
@@ -23,6 +24,7 @@ docker run --name cdh -i -t -h dockerhost \
 	-p 16001:16001 \
 	-p 42222:22 \
 	-p 8042:8042 \
+	-p 60010:60010 \
 	cdh
 
 

@@ -2,6 +2,9 @@
 
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
 
+echo "Start Zookeeper"
+service zookeeper-server start
+
 echo "Start HDFS"
 bash -c 'for x in `cd /etc/init.d ; ls hadoop-hdfs-*` ; do sudo service $x start ; done'
 
@@ -16,8 +19,12 @@ export OOZIE_URL=http://localhost:11000/oozie
 service oozie start
 
 echo "Start Spark"
-service spark-master start
-service spark-worker start
+#service spark-master start
+#service spark-worker start
+
+echo "Start Kafka"
+KAFKA_HOME=/home/kafka
+sudo -u kafka nohup ${KAFKA_HOME}/kafka/bin/kafka-server-start.sh ${KAFKA_HOME}/kafka/config/server.properties > ${KAFKA_HOME}/kafka/kafka.log 2>&1 &
 
 echo "Start Components"
 service hue start
@@ -26,12 +33,12 @@ service solr-server start
 
 nohup hiveserver2 &
 
-bash -c 'for x in `cd /etc/init.d ; ls impala-*` ; do sudo service $x start ; done'
-service hbase-master restart
-service hbase-thrift restart
+#Turned off Impala for now
+#bash -c 'for x in `cd /etc/init.d ; ls impala-*` ; do sudo service $x start ; done'
 
-KAFKA_HOME=/home/kafka
-sudo -u kafka nohup ${KAFKA_HOME}/kafka/bin/kafka-server-start.sh ${KAFKA_HOME}/kafka/config/server.properties > ${KAFKA_HOME}/kafka/kafka.log 2>&1 &
+service hbase-master start
+service hbase-regionserver start
+service hbase-thrift start
 
 echo "Press Ctrl+P and Ctrl+Q to background this process."
 echo 'Use exec command to open a new bash instance for this instance (Eg. "docker exec -i -t CONTAINER_ID bash"). Container ID can be obtained using "docker ps" command.'
