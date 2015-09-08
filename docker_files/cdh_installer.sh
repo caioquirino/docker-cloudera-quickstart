@@ -33,6 +33,9 @@ apt-get update || die
 echo "Install Zookeeper"
 apt-get -y install zookeeper-server || die "Unable to install zookeeper-server"
 
+echo "Removing Max Client Connections Limit for Zookeeper"
+sed -i '/maxClientCnxns/s/=.*/=0/' /etc/zookeeper/conf/zoo.cfg
+
 echo "Start Zookeeper"
 service zookeeper-server init || die "Unable to init zookeeper-server"
 service zookeeper-server start || die "Unable to start zookeeper-server"
@@ -94,17 +97,32 @@ echo "Install Cloudera Components"
 apt-get -y install hadoop-kms hadoop-kms-server hive hbase hbase-thrift hbase-master hbase-regionserver pig hue oozie oozie-client || die
 
 #Use standalone Zookeeper
-echo "export HBASE_MANAGES_ZK=false" >> /etc/hbase/conf.dist/hbase-env.sh
+echo "export HBASE_MANAGES_ZK=true" >> /etc/hbase/conf.dist/hbase-env.sh
 
-#Need to set to pseudo-distributed mode to not use embedded Zookeeper
+#For now, use embedded Zookeeper, but on different port.
+#Tried to use shared zookeeper, but ran into issues.  See below for how to do that.
 #http://serverfault.com/questions/599661/could-not-start-zk-at-requested-port-of-2181-while-export-hbase-manages-zk-fals
 echo '<?xml version="1.0"?>' > /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '<configuration>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <name>hbase.cluster.distributed</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
-echo '        <value>true</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <value>false</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '    </property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <name>hbase.zookeeper.property.clientPort</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <value>2182</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '    </property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <name>hbase.zookeeper.property.maxClientCnxns</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <value>300</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '    </property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <name>hbase.zookeeper.session.timeout</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '        <value>1800000</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+echo '    </property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
+
+#Don't abort coprocessors on error
 echo '    <property>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <name>hbase.coprocessor.abortonerror</name>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
 echo '        <value>false</value>' >> /etc/hbase/conf.dist/hbase-site.xml || die "Unable to update hbase-site.xml"
