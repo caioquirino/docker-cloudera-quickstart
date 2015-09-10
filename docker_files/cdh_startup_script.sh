@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export JAVA_HOME=/usr/lib/jvm/java-7-oracle
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 
 echo "Start Zookeeper"
 service zookeeper-server start
