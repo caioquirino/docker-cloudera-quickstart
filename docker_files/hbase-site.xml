@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <name>hbase.cluster.distributed</name>
+        <value>false</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.property.clientPort</name>
+        <value>2182</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.property.maxClientCnxns</name>
+        <value>300</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.session.timeout</name>
+        <value>1800000</value>
+    </property>
+    <property>
+        <name>hbase.coprocessor.abortonerror</name>
+        <value>false</value>
+    </property>
+</configuration>
