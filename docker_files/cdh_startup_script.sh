@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_40
 
 echo "Start Zookeeper"
 service zookeeper-server start

@@ -12,7 +12,6 @@ ADD docker_files/hadoop-env.sh /etc/profile.d/hadoop-env.sh
 ADD docker_files/spark-env.sh /etc/profile.d/spark-env.sh
 ADD docker_files/spark-defaults.conf /etc/spark/conf/spark-defaults.conf
 
-
 ENV TERM xterm
 
 #The solr config file needs to be added after installation or it fails.
@@ -22,6 +21,9 @@ RUN \
     chmod +x /tmp/cdh_installer.sh && \
     chmod +x /usr/bin/cdh_startup_script.sh && \
     bash /tmp/cdh_installer.sh
+
+ADD docker_files/yarn-site.xml /etc/hadoop/conf/yarn-site.xml
+ADD docker_files/hbase-site.xml /etc/hbase/conf.dist/hbase-site.xml
 
 # private and public mapping
 EXPOSE 2181:2181
