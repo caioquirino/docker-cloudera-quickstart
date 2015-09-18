@@ -18,6 +18,11 @@
     <value>true</value>
   </property>
   <property>
+	  <description>seconds after app finishes before app's files and logs deleted</description>
+	  <name>yarn.nodemanager.delete.debug-delay-sec</name>
+	  <value>600</value>
+	</property>
+  <property>
     <description>List of directories to store localized files in.</description>
     <name>yarn.nodemanager.local-dirs</name>
     <value>/var/lib/hadoop-yarn/cache/${user.name}/nm-local-dir</value>
