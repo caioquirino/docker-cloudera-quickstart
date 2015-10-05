@@ -76,4 +76,17 @@ Apache Spark
 
 [Cloudera Documentation](http://www.cloudera.com/content/cloudera/en/documentation/core/latest/)
 
+# Debugging In Docker
+
+## Changing Debug Delay
+If a samza job dies, its log files get deleted immediately.  To allow them to hang around
+for ten minutes, add the following to /etc/hadoop/conf/yarn-site.xml :
+ 
+	  <property>
+	    <description>seconds after app finishes before app's files and logs deleted</description>
+	    <name>yarn.nodemanager.delete.debug-delay-sec</name>
+	    <value>600</value>
+	  </property>
+
+Then you can find the logs, e.g.: `sudo -E ./yarnlogs.bash Matcher`
 #Please report any issue or feedback if possible.
