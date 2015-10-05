@@ -28,7 +28,7 @@ mkdir /usr/lib/jvm || die "Failed to create Java directory"
 tar -xzf /tmp/jdk-8u40-linux-x64.tar.gz -C /usr/lib/jvm || die "Failed to extract JDK"
 update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_40/bin/java 100 || die "Unable to install JDK"
 update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk1.8.0_40/bin/javac 100 || die "Unable to install JDK"
-update-alternatives --set java /usr/lib/jvm/jdk1.8.0_40/bin/java ||  "Unable to set JDK version"
+update-alternatives --set java /usr/lib/jvm/jdk1.8.0_40/bin/java || die  "Unable to set JDK version"
 update-alternatives --set javac /usr/lib/jvm/jdk1.8.0_40/bin/javac || die "Unable to set JDK version"
 
 
