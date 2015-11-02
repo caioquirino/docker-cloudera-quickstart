@@ -1,4 +1,5 @@
 #!/bin/bash
+STANDALONE_SPARK_MASTER_HOST=`hostname`
+SPARK_MASTER_PORT=7077
 
-[ -f /etc/spark/conf/spark-env.sh ] && . /etc/spark/conf/spark-env.sh
 
