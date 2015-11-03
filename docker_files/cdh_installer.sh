@@ -143,3 +143,7 @@ sudo -E -u kafka mkdir -p ${KAFKA_HOME}/kafka || die
 sudo -E -u kafka tar --strip 1 -xvzf ${KAFKA_HOME}/Downloads/kafka.tgz -C ${KAFKA_HOME}/kafka || die
 sudo -E -u kafka echo "auto.create.topics.enable = true" >> ${KAFKA_HOME}/kafka/config/server.properties || die
 sudo -E -u kafka echo "delete.topic.enable = true" >> ${KAFKA_HOME}/kafka/config/server.properties || die
+
+echo "Install Spark"
+apt-get -y install spark-core spark-master spark-worker spark-history-server spark-python || die
+
