@@ -1,7 +1,7 @@
 # VERSION   0.1
 
 FROM ubuntu:14.04
-MAINTAINER Caio Quirino <caioquirino@caioquirino.com.br>
+MAINTAINER Clayton Silva <clayton.silva@prodest.es.gov.br>
 
 ADD docker_files/cdh_installer.sh /tmp/cdh_installer.sh
 ADD docker_files/install_cloudera_repositories.sh /tmp/install_cloudera_repositories.sh
