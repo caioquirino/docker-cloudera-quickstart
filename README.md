@@ -19,14 +19,14 @@ Works with Cloudera CDH 5
 *Under development. 
 
 
-#Instructions
+# Instructions
 
-##Install
+## Install
 To install the docker-cloudera-quickstart from docker-hub, simply use the following command:
 ```
 docker pull caioquirino/docker-cloudera-quickstart
 ```
-##Use
+## Use
 To start an instance in BACKGROUND (as daemon):
 ```
 docker run -i -t -d caioquirino/docker-cloudera-quickstart
@@ -41,7 +41,7 @@ docker ps
 docker exec -i -t CONTAINER_ID bash -l
 ```
 
-#Links
+# Links
 
 [Pull the image on Docker Hub](https://registry.hub.docker.com/u/caioquirino/docker-cloudera-quickstart/)
 
@@ -89,4 +89,4 @@ for ten minutes, add the following to /etc/hadoop/conf/yarn-site.xml :
 	  </property>
 
 Then you can find the logs, e.g.: `sudo -E ./yarnlogs.bash Matcher`
-#Please report any issue or feedback if possible.
+# Please report any issue or feedback if possible.
